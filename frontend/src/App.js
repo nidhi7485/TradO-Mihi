@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container'
 import { LinkContainer } from 'react-router-bootstrap'
 import HomeScreen from './screen/HomeScreen'
 import ProductScreen from './screen/ProductScreen'
+import CartScreen from './screen/CartScreen'
 
 import { useContext } from 'react'
 import { Store } from './Store'
@@ -20,7 +21,7 @@ function App() {
           <Navbar bg='dark' variant='dark'>
             <Container>
               <LinkContainer to='/'>
-                <Navbar.Brand>TradMihi</Navbar.Brand>
+                <Navbar.Brand>TradoMihi</Navbar.Brand>
               </LinkContainer>
               <Nav className='me-auto'>
                 <Link to='/cart' className='nav-link'>
@@ -39,6 +40,7 @@ function App() {
           <Container className='mt-3'>
             <Routes>
               <Route path='/product/:slug' element={<ProductScreen />} />
+              <Route path='/cart' element={<CartScreen />} />
               <Route path='/' element={<HomeScreen />} />
             </Routes>
           </Container>
