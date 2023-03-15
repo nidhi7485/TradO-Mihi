@@ -1,7 +1,9 @@
+import bcrypt from 'bcryptjs'
+
 const data = {
   products: [
     {
-      id: 1,
+      // id: 1,
       slug: '45mm Apple watch',
       name: '45mm Apple watch',
       category: 'smartWatch',
@@ -9,9 +11,11 @@ const data = {
       brand: 'apple',
       image: '/images/sWtch.jpg',
       description: 'high quality watch',
+      countInStock: 1,
+      numReviews: 0,
     },
     {
-      id: 2,
+      // id: 2,
       slug: 'Harley-Davidson Nightster',
       name: 'Harley-Davidson Nightster',
       category: 'bike',
@@ -19,9 +23,11 @@ const data = {
       brand: 'Harley-Davidson',
       image: '/images/Hd-1.jpg',
       description: 'Equipped with modern features',
+      countInStock: 1,
+      numReviews: 0,
     },
     {
-      id: 3,
+      // id: 3,
       slug: 'Harley-Davidson Sportster S',
       name: 'Harley-Davidson Sportster S',
       category: 'bike',
@@ -29,9 +35,11 @@ const data = {
       brand: 'Harley-Davidson',
       image: '/images/Hd-2.jpg', //679px*829px
       description: 'perfect for the olrando traffic',
+      countInStock: 1,
+      numReviews: 0,
     },
     {
-      id: 4,
+      // id: 4,
       slug: 'Glimpses of a Golden Childhood',
       name: 'Glimpses of a Golden Childhood',
       category: 'book',
@@ -39,6 +47,22 @@ const data = {
       brand: 'book',
       image: '/images/book.jpg',
       description: 'fascinating, entertaining and inspiring stories',
+      countInStock: 1,
+      numReviews: 0,
+    },
+  ],
+  users: [
+    {
+      name: 'user',
+      email: 'user@gmail.com',
+      password: bcrypt.hashSync('secret'),
+      isAdmin: true,
+    },
+    {
+      name: 'user1',
+      email: 'user1@gmail.com',
+      password: bcrypt.hashSync('secret'),
+      isAdmin: false,
     },
   ],
 }
