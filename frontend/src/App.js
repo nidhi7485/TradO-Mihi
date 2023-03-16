@@ -8,13 +8,15 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Container from 'react-bootstrap/Container'
 import { LinkContainer } from 'react-router-bootstrap'
-import HomeScreen from './screen/HomeScreen'
-import ProductScreen from './screen/ProductScreen'
-import CartScreen from './screen/CartScreen'
 
 import { useContext } from 'react'
 import { Store } from './Store'
+import HomeScreen from './screen/HomeScreen'
+import ProductScreen from './screen/ProductScreen'
+import CartScreen from './screen/CartScreen'
 import SigninScreen from './screen/SigninScreen'
+import ShippingAddressScreen from './screen/ShippingAddressScreen'
+import SignupScreen from './screen/SignupScreen'
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store)
   const { cart, userInfo } = state
@@ -43,7 +45,7 @@ function App() {
                   )}
                 </Link>
                 {userInfo ? (
-                  <NavDropdown title={userInfo.name} id='basic-nav-dropdown'>
+                  <NavDropdown title={userInfo.email} id='basic-nav-dropdown'>
                     <LinkContainer to='/profile'>
                       <NavDropdown.Item>User Profile</NavDropdown.Item>
                     </LinkContainer>
@@ -74,6 +76,8 @@ function App() {
               <Route path='/product/:slug' element={<ProductScreen />} />
               <Route path='/cart' element={<CartScreen />} />
               <Route path='/signin' element={<SigninScreen />} />
+              <Route path='/signup' element={<SignupScreen />} />
+              <Route path='/shipping' element={<ShippingAddressScreen />} />
               <Route path='/' element={<HomeScreen />} />
             </Routes>
           </Container>
