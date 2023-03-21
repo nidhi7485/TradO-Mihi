@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import axios from 'axios'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import { getError } from '../utils'
 import { Helmet } from 'react-helmet-async'
 import Row from 'react-bootstrap/Row'
@@ -33,6 +33,7 @@ const reducer = (state, action) => {
       return state
   }
 }
+
 const prices = [
   {
     name: '$1 to $50',
@@ -46,7 +47,12 @@ const prices = [
     name: '$201 to $1000',
     value: '201-1000',
   },
+  {
+    name: '$1001 to $5000',
+    value: '1001-5000',
+  },
 ]
+
 export const ratings = [
   {
     name: '4stars & up',
@@ -68,12 +74,11 @@ export const ratings = [
     rating: 1,
   },
 ]
-const SearchScreen = () => {
-  const navigate = useNavigate()
-  const search = useLocation()
-  //   console.log(search)
-  const sp = new URLSearchParams(search) // /search?category=Shirts
 
+export default function SearchScreen() {
+  const navigate = useNavigate()
+  const { search } = useLocation()
+  const sp = new URLSearchParams(search) // /search?category=Shirts
   const category = sp.get('category') || 'all'
   const query = sp.get('query') || 'all'
   const price = sp.get('price') || 'all'
@@ -117,7 +122,7 @@ const SearchScreen = () => {
     fetchCategories()
   }, [dispatch])
 
-  const getFilterUrl = (filter) => {
+  const getFilterUrl = (filter, skipPathname) => {
     const filterPage = filter.page || page
     const filterCategory = filter.category || category
     const filterQuery = filter.query || query
@@ -127,7 +132,7 @@ const SearchScreen = () => {
     return `/search?category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}&order=${sortOrder}&page=${filterPage}`
   }
   return (
-    <div>
+    <div className='m-4'>
       <Helmet>
         <title>Search Products</title>
       </Helmet>
@@ -234,6 +239,7 @@ const SearchScreen = () => {
                 <Col className='text-end'>
                   Sort by{' '}
                   <select
+                    className='my-2'
                     value={order}
                     onChange={(e) => {
                       navigate(getFilterUrl({ order: e.target.value }))
@@ -263,7 +269,10 @@ const SearchScreen = () => {
                   <LinkContainer
                     key={x + 1}
                     className='mx-1'
-                    to={getFilterUrl({ page: x + 1 })}
+                    to={{
+                      pathname: '/search',
+                      seacrh: getFilterUrl({ page: x + 1 }, true),
+                    }}
                   >
                     <Button
                       className={Number(page) === x + 1 ? 'text-bold' : ''}
@@ -281,5 +290,3 @@ const SearchScreen = () => {
     </div>
   )
 }
-
-export default SearchScreen

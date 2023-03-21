@@ -27,7 +27,9 @@ import OrderScreen from './screen/OrderScreen'
 import OrderHistoryScreen from './screen/OrderHistoryScreen'
 import ProfileScreen from './screen/ProfileScreen'
 import SearchScreen from './screen/SearchScreen'
-
+import ProtectedRoute from './components/ProtectedRoute'
+import DashboardScreen from './screen/DashboardScreen'
+import AdminRoute from './components/AdminRoute'
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store)
   const { cart, userInfo } = state
@@ -109,6 +111,22 @@ function App() {
                       Sign In
                     </Link>
                   )}
+                  {userInfo && userInfo.isAdmin && (
+                    <NavDropdown title='Admin' id='admin-nav-dropdown'>
+                      <LinkContainer to='/admin/dashboard'>
+                        <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to='/admin/productlist'>
+                        <NavDropdown.Item>Products</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to='/admin/orderlist'>
+                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                      </LinkContainer>
+                      <LinkContainer to='/admin/userlist'>
+                        <NavDropdown.Item>Users</NavDropdown.Item>
+                      </LinkContainer>
+                    </NavDropdown>
+                  )}
                 </Nav>
               </Navbar.Collapse>
             </Container>
@@ -128,9 +146,9 @@ function App() {
             {categories.map((category) => (
               <Nav.Item key={category}>
                 <LinkContainer
-                  to={`/search`}
-                  state={{
-                    category: `${category}`,
+                  to={{
+                    pathname: '/search',
+                    search: `category=${category}`,
                   }}
                   onClick={() => setSidebarIsOpen(false)}
                 >
@@ -154,15 +172,45 @@ function App() {
               <Route path='/search' element={<SearchScreen />} />
               <Route path='/signin' element={<SigninScreen />} />
               <Route path='/signup' element={<SignupScreen />} />
-              <Route path='/profile' element={<ProfileScreen />} />
-              <Route path='/placeorder' element={<PlaceOrderScreen />} />
-              <Route path='/order/:id' element={<OrderScreen />}></Route>
+              <Route
+                path='/profile'
+                element={
+                  <ProtectedRoute>
+                    <ProfileScreen />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path='/order/:id'
+                element={
+                  <ProtectedRoute>
+                    <OrderScreen />
+                  </ProtectedRoute>
+                }
+              ></Route>
+              <Route
+                path='/order/:id'
+                element={
+                  <ProtectedRoute>
+                    <OrderScreen />
+                  </ProtectedRoute>
+                }
+              ></Route>
               <Route
                 path='/orderhistory'
                 element={<OrderHistoryScreen />}
               ></Route>
               <Route path='/shipping' element={<ShippingAddressScreen />} />
               <Route path='/payment' element={<PaymentMethodScreen />} />
+              {/* Admin Routes */}
+              <Route
+                path='/admin/dashboard'
+                element={
+                  <AdminRoute>
+                    <DashboardScreen />
+                  </AdminRoute>
+                }
+              ></Route>
               <Route path='/' element={<HomeScreen />} />
             </Routes>
           </Container>
