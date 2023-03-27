@@ -181,6 +181,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route path='/placeorder' element={<PlaceOrderScreen />} />
               <Route
                 path='/order/:id'
                 element={
@@ -189,14 +190,7 @@ function App() {
                   </ProtectedRoute>
                 }
               ></Route>
-              <Route
-                path='/order/:id'
-                element={
-                  <ProtectedRoute>
-                    <OrderScreen />
-                  </ProtectedRoute>
-                }
-              ></Route>
+
               <Route
                 path='/orderhistory'
                 element={<OrderHistoryScreen />}
