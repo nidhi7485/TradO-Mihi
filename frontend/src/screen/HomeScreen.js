@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet-async'
 import LoadingBox from '../components/LoadingBox'
 import MessageBox from '../components/MessageBox'
 // import data from '../data'
+import eCom from '../assets/ez.gif'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -49,6 +50,7 @@ function HomeScreen() {
       <Helmet>
         <title>TradoMihi</title>
       </Helmet>
+      <img src={eCom} alt='banner' style={{ width: '100%', height: '500px' }} />
       <h1>Products</h1>
       <div className='products'>
         {loading ? (
