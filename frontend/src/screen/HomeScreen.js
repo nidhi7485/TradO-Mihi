@@ -8,7 +8,10 @@ import { Helmet } from 'react-helmet-async'
 import LoadingBox from '../components/LoadingBox'
 import MessageBox from '../components/MessageBox'
 // import data from '../data'
-import eCom from '../assets/ez.gif'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import Slider from 'react-slick'
+import eCom from '../assets/stock.jpg'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -25,6 +28,18 @@ const reducer = (state, action) => {
 }
 
 function HomeScreen() {
+  // for slider
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 1000,
+  }
+  //  slider setting end
+
   const [{ loading, error, products }, dispatch] = useReducer(logger(reducer), {
     products: [],
     loading: true,
@@ -50,7 +65,13 @@ function HomeScreen() {
       <Helmet>
         <title>TradoMihi</title>
       </Helmet>
-      <img src={eCom} alt='banner' style={{ width: '100%', height: '500px' }} />
+      <Slider {...settings}>
+        <img
+          src={eCom}
+          alt='banner'
+          style={{ width: '100%', height: '500px' }}
+        />
+      </Slider>
       <h1>Products</h1>
       <div className='products'>
         {loading ? (
